@@ -3,6 +3,11 @@
 ## 📌 Descrição do Projeto
 Este projeto simula um sistema IoT de monitoramento de sinais vitais utilizando ESP32, MQTT e Node-RED Dashboard. Os dados de frequência cardíaca (BPM) e saturação de oxigênio (SpO2) são gerados pelo dispositivo e enviados via MQTT para visualização em tempo real.
 
+## Integrantes
+RM568108 – Nicolas Tanajura 
+RM567396 – Pedro Chiarantano 
+RM568059 – Gabriel Cutrim
+
 ---
 
 ## 🏗️ Arquitetura
