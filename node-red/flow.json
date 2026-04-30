@@ -1,0 +1,570 @@
+[
+    {
+        "id": "d61ba9c2154c3ecd",
+        "type": "tab",
+        "label": "Flow 1",
+        "disabled": true,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "3367a1af38737e59",
+        "type": "tab",
+        "label": "CarePlus Dashboard",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "broker1",
+        "type": "mqtt-broker",
+        "name": "HiveMQ",
+        "broker": "broker.hivemq.com",
+        "port": "1883",
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": 4,
+        "keepalive": 15,
+        "cleansession": true,
+        "autoUnsubscribe": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": "",
+        "willMsg": {},
+        "userProps": "",
+        "sessionExpiry": ""
+    },
+    {
+        "id": "b612ea19a140a26d",
+        "type": "mqtt-broker",
+        "name": "",
+        "broker": "f8e15f976b1d4f93920bf5520417806c.s1.eu.hivemq.cloud",
+        "port": "8883",
+        "tls": "",
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": true,
+        "protocolVersion": "5",
+        "keepalive": 60,
+        "cleansession": true,
+        "autoUnsubscribe": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthRetain": "false",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closeRetain": "false",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willRetain": "false",
+        "willPayload": "",
+        "willMsg": {},
+        "userProps": "",
+        "sessionExpiry": ""
+    },
+    {
+        "id": "ui_base",
+        "type": "ui-base",
+        "name": "CarePlus UI",
+        "path": "/dashboard",
+        "headerContent": "page",
+        "titleBarStyle": "default",
+        "showReconnectNotification": true,
+        "notificationDisplayTime": 5,
+        "showDisconnectNotification": true,
+        "allowInstall": true
+    },
+    {
+        "id": "ui_page",
+        "type": "ui-page",
+        "name": "Dashboard",
+        "ui": "ui_base",
+        "path": "/",
+        "icon": "",
+        "layout": "grid",
+        "theme": "4dcac08a66fc8d8e",
+        "breakpoints": [
+            {
+                "name": "Default",
+                "px": "0",
+                "cols": "3"
+            },
+            {
+                "name": "Tablet",
+                "px": "576",
+                "cols": "6"
+            },
+            {
+                "name": "Small Desktop",
+                "px": "768",
+                "cols": "9"
+            },
+            {
+                "name": "Desktop",
+                "px": "1024",
+                "cols": "12"
+            }
+        ],
+        "className": "",
+        "visible": "true",
+        "disabled": "false"
+    },
+    {
+        "id": "ui_group",
+        "type": "ui-group",
+        "name": "Health",
+        "page": "ui_page",
+        "width": "6",
+        "height": "",
+        "showTitle": true,
+        "className": "",
+        "visible": "true",
+        "disabled": "false",
+        "groupType": "default"
+    },
+    {
+        "id": "4dcac08a66fc8d8e",
+        "type": "ui-theme",
+        "name": "Careplus Theme",
+        "colors": {
+            "surface": "#ffffff",
+            "primary": "#0094ce",
+            "bgPage": "#eeeeee",
+            "groupBg": "#ffffff",
+            "groupOutline": "#cccccc"
+        },
+        "sizes": {
+            "density": "default",
+            "pagePadding": "12px",
+            "groupGap": "12px",
+            "groupBorderRadius": "4px",
+            "widgetGap": "12px"
+        }
+    },
+    {
+        "id": "mqtt_in",
+        "type": "mqtt in",
+        "z": "d61ba9c2154c3ecd",
+        "name": "CarePlus MQTT",
+        "topic": "/careplus/health/metrics",
+        "qos": "0",
+        "datatype": "auto",
+        "broker": "broker1",
+        "nl": false,
+        "rap": false,
+        "inputs": 0,
+        "x": 520,
+        "y": 480,
+        "wires": [
+            [
+                "json_node"
+            ]
+        ]
+    },
+    {
+        "id": "json_node",
+        "type": "json",
+        "z": "d61ba9c2154c3ecd",
+        "name": "Parse JSON",
+        "x": 700,
+        "y": 480,
+        "wires": [
+            [
+                "debug_node",
+                "419b1425e96f93d2",
+                "5ed719093d2007bd"
+            ]
+        ]
+    },
+    {
+        "id": "debug_node",
+        "type": "debug",
+        "z": "d61ba9c2154c3ecd",
+        "name": "Debug Output",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "complete": "payload",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 920,
+        "y": 440,
+        "wires": []
+    },
+    {
+        "id": "419b1425e96f93d2",
+        "type": "change",
+        "z": "d61ba9c2154c3ecd",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload.bpm",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 920,
+        "y": 500,
+        "wires": [
+            [
+                "79f1a56a01292df6"
+            ]
+        ]
+    },
+    {
+        "id": "5ed719093d2007bd",
+        "type": "change",
+        "z": "d61ba9c2154c3ecd",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload.spo2",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 920,
+        "y": 560,
+        "wires": [
+            [
+                "beb95bb19a75e297"
+            ]
+        ]
+    },
+    {
+        "id": "79f1a56a01292df6",
+        "type": "ui-gauge",
+        "z": "d61ba9c2154c3ecd",
+        "name": "Heart Rate",
+        "group": "ui_group",
+        "order": "",
+        "value": "payload.bpm",
+        "valueType": "msg",
+        "width": "",
+        "height": "",
+        "title": "",
+        "alwaysShowTitle": false,
+        "units": "",
+        "icon": "",
+        "prefix": "",
+        "suffix": "",
+        "segments": [
+            {
+                "from": "40",
+                "color": "#008000",
+                "text": "",
+                "textType": "label"
+            },
+            {
+                "from": "80",
+                "color": "#ffff00",
+                "text": "",
+                "textType": "label"
+            },
+            {
+                "from": "110",
+                "color": "#ff0000",
+                "text": "",
+                "textType": "label"
+            }
+        ],
+        "min": 40,
+        "max": 130,
+        "sizeThickness": "",
+        "sizeGap": "",
+        "sizeKeyThickness": "",
+        "className": "",
+        "x": 1130,
+        "y": 500,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "beb95bb19a75e297",
+        "type": "ui-gauge",
+        "z": "d61ba9c2154c3ecd",
+        "name": "SpO2",
+        "group": "ui_group",
+        "order": "",
+        "value": "payload.spo2",
+        "valueType": "msg",
+        "width": "",
+        "height": "",
+        "title": "",
+        "alwaysShowTitle": false,
+        "units": "",
+        "icon": "",
+        "prefix": "",
+        "suffix": "",
+        "segments": [
+            {
+                "from": "90",
+                "color": "#ff0000",
+                "text": "",
+                "textType": "label"
+            },
+            {
+                "from": "94",
+                "color": "#ffff00",
+                "text": "",
+                "textType": "label"
+            },
+            {
+                "from": "97",
+                "color": "#008000",
+                "text": "",
+                "textType": "label"
+            }
+        ],
+        "min": 90,
+        "max": 100,
+        "sizeThickness": "",
+        "sizeGap": "",
+        "sizeKeyThickness": "",
+        "className": "",
+        "x": 1110,
+        "y": 560,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "6e8cc1ce45347401",
+        "type": "mqtt in",
+        "z": "3367a1af38737e59",
+        "name": "CarePlus MQTT",
+        "topic": "/careplus/health/metrics",
+        "qos": "0",
+        "datatype": "auto",
+        "broker": "broker1",
+        "nl": false,
+        "rap": false,
+        "inputs": 0,
+        "x": 160,
+        "y": 300,
+        "wires": [
+            [
+                "a5c10fdb210657b0"
+            ]
+        ]
+    },
+    {
+        "id": "a5c10fdb210657b0",
+        "type": "json",
+        "z": "3367a1af38737e59",
+        "name": "Parse JSON",
+        "action": "obj",
+        "pretty": false,
+        "x": 360,
+        "y": 300,
+        "wires": [
+            [
+                "88be9b11b74fe336",
+                "b0c064190548159f",
+                "da668497af26df7e"
+            ]
+        ]
+    },
+    {
+        "id": "88be9b11b74fe336",
+        "type": "debug",
+        "z": "3367a1af38737e59",
+        "name": "Debug completo",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "complete": "payload",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 580,
+        "y": 220,
+        "wires": []
+    },
+    {
+        "id": "b0c064190548159f",
+        "type": "change",
+        "z": "3367a1af38737e59",
+        "name": "Extrai BPM",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload.bpm",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 580,
+        "y": 300,
+        "wires": [
+            [
+                "f106f454fc33b5b5"
+            ]
+        ]
+    },
+    {
+        "id": "da668497af26df7e",
+        "type": "change",
+        "z": "3367a1af38737e59",
+        "name": "Extrai SpO2",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload.spo2",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 580,
+        "y": 380,
+        "wires": [
+            [
+                "7a68f6e2d314128c"
+            ]
+        ]
+    },
+    {
+        "id": "f106f454fc33b5b5",
+        "type": "ui-gauge",
+        "z": "3367a1af38737e59",
+        "name": "Heart Rate",
+        "group": "ui_group",
+        "order": 1,
+        "value": "payload",
+        "valueType": "msg",
+        "width": 3,
+        "height": 3,
+        "title": "Frequência Cardíaca (bpm)",
+        "alwaysShowTitle": true,
+        "units": "bpm",
+        "icon": "mdi:heart",
+        "prefix": "",
+        "suffix": " bpm",
+        "segments": [
+            {
+                "from": "40",
+                "color": "#00AA00",
+                "text": "Normal",
+                "textType": "label"
+            },
+            {
+                "from": "80",
+                "color": "#FFA500",
+                "text": "Atenção",
+                "textType": "label"
+            },
+            {
+                "from": "110",
+                "color": "#FF0000",
+                "text": "Alto",
+                "textType": "label"
+            }
+        ],
+        "min": 40,
+        "max": 130,
+        "sizeThickness": 10,
+        "sizeGap": 4,
+        "sizeKeyThickness": 12,
+        "className": "",
+        "x": 800,
+        "y": 300,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "7a68f6e2d314128c",
+        "type": "ui-gauge",
+        "z": "3367a1af38737e59",
+        "name": "SpO2",
+        "group": "ui_group",
+        "order": 2,
+        "value": "payload",
+        "valueType": "msg",
+        "width": 3,
+        "height": 3,
+        "title": "Saturação de Oxigênio (SpO2)",
+        "alwaysShowTitle": true,
+        "units": "%",
+        "icon": "mdi:lungs",
+        "prefix": "",
+        "suffix": "%",
+        "segments": [
+            {
+                "from": "90",
+                "color": "#FF0000",
+                "text": "Crítico",
+                "textType": "label"
+            },
+            {
+                "from": "94",
+                "color": "#FFA500",
+                "text": "Atenção",
+                "textType": "label"
+            },
+            {
+                "from": "97",
+                "color": "#00AA00",
+                "text": "Normal",
+                "textType": "label"
+            }
+        ],
+        "min": 90,
+        "max": 100,
+        "sizeThickness": 10,
+        "sizeGap": 4,
+        "sizeKeyThickness": 12,
+        "className": "",
+        "x": 800,
+        "y": 380,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "488630bd4811f04c",
+        "type": "global-config",
+        "env": [],
+        "modules": {
+            "@flowfuse/node-red-dashboard": "1.30.2"
+        }
+    }
+]
