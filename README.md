@@ -1,42 +1,120 @@
 # CarePlus IoT - Monitoramento de Saúde
 
 ## 📌 Descrição do Projeto
-Este projeto simula um sistema IoT de monitoramento de sinais vitais utilizando ESP32, MQTT e Node-RED Dashboard. Os dados de frequência cardíaca (BPM) e saturação de oxigênio (SpO2) são gerados pelo dispositivo e enviados via MQTT para visualização em tempo real.
 
-## Integrantes
-- RM568108 – Nicolas Tanajura 
-- RM567396 – Pedro Chiarantano 
-- RM568059 – Gabriel Cutrim
+O CarePlus é uma solução IoT para monitoramento de sinais vitais em tempo real. O projeto utiliza um ESP32 simulado no Wokwi para coletar dados de sensores virtuais e enviá-los via protocolo MQTT para um broker HiveMQ. O Node-RED recebe essas informações e as apresenta em um dashboard interativo para acompanhamento dos indicadores de saúde.
+
+Os dados monitorados incluem:
+
+* Frequência Cardíaca (BPM)
+* Saturação de Oxigênio (SpO2)
+* Temperatura Corporal
+
+---
+
+## 👥 Integrantes
+
+* RM568108 – Nicolas Tanajura
+* RM567396 – Pedro Chiarantano
+* RM568059 – Gabriel Cutrim
 
 ---
 
 ## 🏗️ Arquitetura
 
-- ESP32 (Wokwi Simulation)
-- Broker MQTT (broker.hivemq.com)
-- Node-RED Dashboard
-- Comunicação via MQTT topic: /careplus/health/metrics
+### Componentes
 
-Fluxo:
-ESP32 → MQTT Broker → Node-RED → Dashboard
+* ESP32 (Simulação no Wokwi)
+* Sensores Virtuais
+
+  * Potenciômetro (BPM)
+  * Potenciômetro (SpO2)
+  * DHT22 (Temperatura)
+* Broker MQTT (HiveMQ)
+* Node-RED
+* Dashboard Web
+
+### Fluxo de Dados
+
+```text
+Sensores → ESP32 → MQTT Broker → Node-RED → Dashboard
+```
+
+### Tópico MQTT
+
+```text
+/careplus/health/metrics
+```
 
 ---
 
-## 📡 Tecnologias usadas
+## 📡 Tecnologias Utilizadas
 
-- Arduino / ESP32
-- MQTT (HiveMQ)
-- Node-RED
-- Dashboard UI (node-red-dashboard)
+* Arduino IDE
+* ESP32
+* MQTT
+* HiveMQ
+* Node-RED
+* Wokwi Simulator
+* Dashboard UI
 
 ---
 
-## 📊 Dados enviados
+## 📊 Dados Enviados
 
-Exemplo de payload:
+Exemplo de payload MQTT:
 
 ```json
 {
-  "bpm": 78,
-  "spo2": 97
+  "bpm": 92,
+  "spo2": 96,
+  "temperature": 37.3
 }
+```
+
+---
+
+## 📈 Funcionalidades
+
+* Monitoramento de BPM em tempo real
+* Monitoramento de SpO2 em tempo real
+* Monitoramento de temperatura corporal
+* Dashboard com gauges interativos
+* Gráficos históricos das métricas
+* Registro das leituras em tabela
+* Comunicação em tempo real via MQTT
+
+---
+
+## 🚀 Como Executar
+
+### 1. Simulação Wokwi
+
+1. Abra o projeto no Wokwi.
+2. Inicie a simulação.
+3. Ajuste os potenciômetros e o sensor para gerar novas leituras.
+
+### 2. Node-RED
+
+1. Importe o fluxo fornecido no repositório.
+2. Configure o broker MQTT:
+
+   * Host: broker.hivemq.com
+   * Porta: 1883
+3. Faça o Deploy do fluxo.
+
+### 3. Dashboard
+
+Acesse:
+
+```text
+http://localhost:1880/dashboard
+```
+
+ou a URL configurada no Node-RED.
+
+---
+
+## 🎯 Aplicação
+
+O projeto demonstra como tecnologias IoT podem ser utilizadas para monitoramento remoto de pacientes, permitindo a coleta, transmissão e visualização de sinais vitais em tempo real por meio de uma arquitetura baseada em MQTT.
