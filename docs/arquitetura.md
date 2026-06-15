@@ -4,7 +4,7 @@
 
 ## 📌 Visão Geral
 
-O sistema simula um ambiente de monitoramento de saúde via IoT, onde um dispositivo **ESP32** gera sinais vitais (BPM e SpO2), envia via **MQTT** para um broker público, e o **Node-RED** consome esses dados para exibição em um dashboard em tempo real.
+O CarePlus é uma solução IoT para monitoramento de sinais vitais em tempo real. Utilizando um ESP32 simulado no Wokwi, sensores virtuais geram dados de frequência cardíaca (BPM), saturação de oxigênio (SpO2) e temperatura corporal, que são enviados via protocolo MQTT para um broker público. O Node-RED recebe essas informações e as apresenta em um dashboard interativo para acompanhamento do paciente.
 
 ---
 
@@ -12,39 +12,101 @@ O sistema simula um ambiente de monitoramento de saúde via IoT, onde um disposi
 
 ### 📦 Componentes do Sistema
 
----
-
 ### 🤖 ESP32 (Wokwi)
-- Gera dados simulados de sinais vitais
-- Frequência cardíaca (BPM)
-- Saturação de oxigênio (SpO2)
-- Publica mensagens via MQTT
+
+Responsável pela coleta e envio dos dados dos sensores simulados.
+
+Sensores utilizados:
+
+* Potenciômetro 1 → Frequência Cardíaca (BPM)
+* Potenciômetro 2 → Saturação de Oxigênio (SpO2)
+* DHT22 → Temperatura Corporal
+
+Funções:
+
+* Leitura dos sensores
+* Formatação dos dados em JSON
+* Publicação via MQTT
 
 ---
 
 ### ☁️ Broker MQTT (HiveMQ)
-- Atua como middleware de comunicação **publish/subscribe**
-- Recebe mensagens do ESP32
-- Distribui para os consumidores inscritos
+
+Atua como intermediário entre os dispositivos e a aplicação.
+
+Funções:
+
+* Receber mensagens publicadas pelo ESP32
+* Distribuir os dados para os clientes inscritos
+* Implementar o modelo Publish/Subscribe
+
+Tópico utilizado:
+
+```text
+/careplus/health/metrics
+```
 
 ---
 
 ### 🔧 Node-RED
-- Assina o tópico MQTT `/careplus/health/metrics`
-- Converte payload JSON
-- Processa dados (BPM e SpO2)
-- Envia para o dashboard
+
+Responsável pelo processamento dos dados recebidos.
+
+Funções:
+
+* Assinar o tópico MQTT
+* Converter mensagens JSON
+* Processar métricas de saúde
+* Alimentar o dashboard em tempo real
+* Registrar histórico das leituras
 
 ---
 
 ### 📊 Dashboard UI
-- Exibe métricas em tempo real
-- Gauge de Frequência Cardíaca (BPM)
-- Gauge de SpO2
-- Interface visual para monitoramento
+
+Interface de monitoramento em tempo real.
+
+Recursos disponíveis:
+
+* Gauge de Frequência Cardíaca (BPM)
+* Gauge de Saturação de Oxigênio (SpO2)
+* Gauge de Temperatura Corporal
+* Gráfico histórico de BPM
+* Gráfico histórico de SpO2
+* Tabela com histórico das leituras
+
+---
+
+## 📡 Estrutura do Payload
+
+Exemplo de mensagem enviada pelo ESP32:
+
+```json
+{
+  "bpm": 92,
+  "spo2": 96,
+  "temperature": 37.3
+}
+```
 
 ---
 
 ## 🔁 Fluxo de Dados
 
-ESP32 → MQTT Broker → Node-RED → Dashboard UI
+```text
+Sensores Simulados
+       ↓
+      ESP32
+       ↓ MQTT
+Broker HiveMQ
+       ↓
+    Node-RED
+       ↓
+ Dashboard UI
+```
+
+---
+
+## 🎯 Aplicação na Saúde
+
+A solução demonstra como dispositivos IoT podem ser utilizados para monitoramento remoto de pacientes, permitindo o acompanhamento contínuo de indicadores importantes de saúde e auxiliando na tomada de decisões de forma rápida e eficiente.
